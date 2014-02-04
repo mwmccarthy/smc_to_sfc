@@ -1,5 +1,6 @@
 require 'sinatra'
+require 'haml'
 
 get '/' do
-  'Hello.'
+  haml :index, :format => :html5
 end
