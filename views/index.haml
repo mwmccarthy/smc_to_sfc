@@ -1,5 +1,9 @@
 !!!
 %html
   %head
-    %title Sinatra App
+    %title smc to sfc converter
   %body
+    %h1 smc to sfc converter
+    %form{:action => "/convert", :method => "post", :enctype => "multipart/form-data"}
+      %input{:type => "file", :name => "upfile"}
+      %input{:type => "submit", :value => "Convert!"}
