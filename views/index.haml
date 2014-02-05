@@ -4,10 +4,10 @@
     %title smc to sfc converter
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/styles.css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
-    %script{:src => "fade.js"}
+    %script{:src => "script.js"}
   %body
     %h1 smc to sfc converter
     %form{:action => "/convert", :method => "post", :enctype => "multipart/form-data"}
-      %input{:type => "file", :name => "upfile"}
-      %input{:type => "submit", :value => "Convert!"}
+      %input{:type => "file", :name => "upfile", :id => "rom_file"}
+      %input{:type => "submit", :value => "Convert!", :id => "rom_submit"}
     =styled_flash
