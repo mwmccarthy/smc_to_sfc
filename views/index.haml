@@ -1,12 +1,13 @@
 !!!
 %html
   %head
-    %title smc to sfc converter
+    %title SNES ROM converter: smc to sfc
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/styles.css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
-    %script{:src => "script.js"}
+    %script{:src => "/script.js"}
   %body
-    %h1 smc to sfc converter
+    %h1 SNES ROM converter
+    %h2 smc to sfc
     %form{:action => "/convert", :method => "post", :enctype => "multipart/form-data"}
       %input{:type => "file", :name => "upfile", :id => "rom_file"}
       %input{:type => "submit", :value => "Convert!", :id => "rom_submit"}

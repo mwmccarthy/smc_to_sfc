@@ -2,6 +2,7 @@ require 'sinatra'
 require 'haml'
 require 'sinatra/flash'
 require 'sass'
+require_relative 'models/smc_rom'
 
 enable :sessions
 
@@ -19,37 +20,17 @@ post '/convert' do
     redirect '/'
   end
 
-  tempfile = params['upfile'][:tempfile]
-  filename = params['upfile'][:filename]
-
-  file_base = filename.split('.')[0..-2].join('.')
-  file_extension = filename.split('.')[-1]
-
-  unless file_extension == 'smc'
-    flash[:error] = 'That\'s not an smc file!'
+  begin
+    smc_rom = SmcRom.new(params['upfile'][:tempfile], params['upfile'][:filename])
+  rescue ArgumentError
+    flash[:error] = "#{params['upfile'][:filename]} is not a valid .smc ROM."
     redirect '/'
   end
 
-  byte_array = []
-  File.open(tempfile, 'r') do |f|
-    f.each_byte { |b| byte_array << b }
-  end
-
-  remainder = byte_array.size % 1024
-
-  case remainder
-  when 0
-    send_file tempfile.path, :filename => "#{file_base}.sfc", :type => 'Application/octet-stream'
-  when 512
-    outfile = Tempfile.new('sfc')
-    outfile.write byte_array[512..-1].pack('c*')
-    send_file outfile.path, :filename => "#{file_base}.sfc", :type => 'Application/octet-stream'
-    outfile.close
-    outfile.unlink
-  else
-    flash[:error] = 'That doesn\'t seem to be a valid SNES ROM.'
-    redirect '/'
-  end
+  ofile, fname = smc_rom.convert_to_sfc 
+  send_file ofile.path, :filename => fname, :type => 'Application/octet-stream'
+  ofile.close
+  ofile.unlink
 
   redirect '/'
 end
