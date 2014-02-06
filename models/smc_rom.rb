@@ -3,7 +3,7 @@ class SmcRom
   def initialize(smc_file, file_name)
     @smc_file = smc_file
     @file_name = file_name
-    raise ArgumentError, 'not a valid .smc ROM' unless is_smc_rom?(@smc_file, @file_name)
+    raise ArgumentError, 'not a valid .smc ROM' unless is_smc_rom?
     
     @byte_array = []
     File.open(@smc_file, 'r') do |f|
@@ -11,12 +11,12 @@ class SmcRom
     end
   end
 
-  def is_smc_rom?(smc_file, file_name)
-    file_size = File.size(smc_file)
-    header = smc_file.each_byte.to_a[0..511]
+  def is_smc_rom?
+    file_size = File.size(@smc_file)
+    header = @smc_file.each_byte.to_a[0..511]
     dump_size = header[0..1].reverse.map { |e| e.to_s(16) }.join.to_i(16)
 
-    file_name.downcase.match(/\.smc$/) &&
+    @file_name.downcase.match(/\.smc$/) &&
     file_size <= 6291968 &&
     file_size % 1024 == 512 &&
     header.count { |b| b == 0 } > 500 &&
