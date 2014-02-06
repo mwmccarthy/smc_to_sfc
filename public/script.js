@@ -10,8 +10,10 @@ $(document).ready(function(){
        
         if (fsize > 6291968 || !pattern.test(fname) || fsize % 1024 != 512)
         {
-            alert(fname +" is not a valid .smc ROM.");
             $('#rom_file').val('');
+            $('#error').html(fname +" is not a valid .smc ROM.");
+            $("#error").fadeIn(1);
+            $("#error").fadeOut(3000);
         }
     }else{
         alert("Your browser is not supported.");
