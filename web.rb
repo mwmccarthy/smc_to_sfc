@@ -27,10 +27,20 @@ post '/convert' do
     redirect '/'
   end
 
-  ofile, fname = smc_rom.convert_to_sfc 
+  set_session(smc_rom)
+
+  ofile, fname = smc_rom.convert_to_sfc
   send_file ofile.path, :filename => fname, :type => 'Application/octet-stream'
   ofile.close
   ofile.unlink
 
   redirect '/'
+end
+
+def set_session(rom)
+  session['name'] = rom.name
+  session['country'] = rom.country
+  session['video'] = rom.video
+  session['licensee'] = rom.licensee
+  session['version'] = rom.version
 end

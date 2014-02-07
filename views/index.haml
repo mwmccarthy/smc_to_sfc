@@ -13,3 +13,13 @@
       %input{:type => "submit", :value => "Convert!", :id => "rom_submit"}
     =styled_flash
     %div{:id => "error"}
+    - if session['name']
+      %span= session['name']
+    - if session['country']
+      %span= session['country']
+    - if session['video']
+      %span= session['video']
+    - if session['licensee']
+      %span= session['licensee']
+    - if session['version']
+      %span= session['version']
