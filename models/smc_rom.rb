@@ -11,6 +11,8 @@ class SmcRom
 
     raise ArgumentError, 'not a valid .smc ROM' unless is_smc_rom?
 
+    @dump = @byte_array[512..-1]
+
   end
 
   def convert_to_sfc

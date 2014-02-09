@@ -1,9 +1,9 @@
 require 'sinatra'
-require 'haml'
 require 'sinatra/flash'
+require 'haml'
 require 'sass'
 require 'coffee-script'
-require 'pry'
+
 require_relative 'models/smc_rom'
 
 class SassEngine < Sinatra::Base
