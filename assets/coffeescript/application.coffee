@@ -20,9 +20,13 @@ $ ->
         header = new Uint8Array array_buffer, 0, 0x200
         dump = new Uint8Array array_buffer, 0x200
         o = detect_offset dump
-        $('#name').html String.fromCharCode(dump.subarray(0xffc0+o, 0xffc0+o+21)...)
-        $('#video').html detect_video(dump[0xffd9+o])
-        $('#version').html "1.#{dump[0xffdb+o]}"
+        $('#name').html "Name: #{String.fromCharCode(dump.subarray(0xffc0+o, 0xffc0+o+21)...)}"
+        $.getScript '/javascripts/licenses.js', () ->
+          $('#license').html "License: #{licenses[dump[0xffda+o]]}"
+        $.getScript '/javascripts/countries.js', () ->
+          $('#country').html "Region: #{countries[dump[0xffd9+o]]}"
+        $('#video').html "Video: #{detect_video(dump[0xffd9+o])}"
+        $('#version').html "Version: 1.#{dump[0xffdb+o]}"
       reader.readAsArrayBuffer rom
 
     else

@@ -21,7 +21,7 @@ class CoffeeEngine < Sinatra::Base
 
   set :views,   File.dirname(__FILE__)    + '/assets/coffeescript'
 
-  get "/javascripts/*.js" do
+  get '/javascripts/*.js' do
     filename = params[:splat].first
     coffee filename.to_sym
   end
