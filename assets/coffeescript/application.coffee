@@ -2,6 +2,12 @@ $ ->
   $('#flash').fadeOut 3000
   $('#rom_file').change ->
 
+    $('#name').html ''
+    $('#license').html ''
+    $('#country').html ''
+    $('#video').html ''
+    $('#version').html ''
+
     if window.File and window.FileReader and window.FileList and window.Blob
       rom = $('#rom_file')[0].files[0]
       [fname, fsize] = [rom.name, rom.size]
@@ -9,11 +15,6 @@ $ ->
 
       unless fsize <= 0x600200 and pattern.test(fname) and fsize % 0x400 is 0x200
         $('#rom_file').val ''
-        $('#name').html ''
-        $('#license').html ''
-        $('#country').html ''
-        $('#video').html ''
-        $('#version').html ''
         $('#error').html fname + ' is not a valid .smc ROM.'
         $('#error').fadeIn 1
         $('#error').fadeOut 3000
