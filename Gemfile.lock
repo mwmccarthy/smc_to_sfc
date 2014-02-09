@@ -6,12 +6,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    eventmachine (1.0.3)
     execjs (2.0.2)
     haml (3.1.7)
     method_source (0.8.2)
-    node (0.0.2)
-      eventmachine
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -32,7 +29,6 @@ PLATFORMS
 DEPENDENCIES
   coffee-script (= 2.2.0)
   haml (= 3.1.7)
-  node (= 0.0.2)
   pry (= 0.9.12.6)
   sass (= 3.2.14)
   sinatra (= 1.1.0)
