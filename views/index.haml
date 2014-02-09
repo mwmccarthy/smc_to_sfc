@@ -2,24 +2,20 @@
 %html
   %head
     %title SNES ROM converter: smc to sfc
-    %link{:rel => 'stylesheet', :type => 'text/css', :href => '/styles.css'}
-    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
-    %script{:src => "/script.js"}
+    %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/styles.css'}
+    %script{:src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'}
+    %script{:src => '/javascripts/application.js'}
   %body
     %h1 SNES ROM converter
     %h2 smc to sfc
-    %form{:action => "/convert", :method => "post", :enctype => "multipart/form-data"}
-      %input{:type => "file", :name => "upfile", :id => "rom_file"}
-      %input{:type => "submit", :value => "Convert!", :id => "rom_submit"}
+    %form{:action => '/convert', :method => 'post', :enctype => 'multipart/form-data'}
+      %input{:type => 'file', :name => 'upfile', :id => 'rom_file'}
+      %input{:type => 'submit', :value => 'Convert!', :id => 'rom_submit'}
     =styled_flash
-    %div{:id => "error"}
-    - if session['name']
-      %span= session['name']
-    - if session['country']
-      %span= session['country']
-    - if session['video']
-      %span= session['video']
-    - if session['licensee']
-      %span= session['licensee']
-    - if session['version']
-      %span= session['version']
+    %div{:id => 'error'}
+    %div{:id => 'info'}
+      %span{:id => 'name'}
+      %span{:id => 'licensee'}
+      %span{:id => 'country'}
+      %span{:id => 'video'}
+      %span{:id => 'version'}
