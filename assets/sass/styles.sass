@@ -1,12 +1,56 @@
 body
-  background-color: #eee
+  font-family: 'Droid Sans Mono', sans-serif
+  background-color: #eef
+  background-image: url('/images/snes.png')
+  background-repeat: no-repeat
+  background-attachment: fixed
+  background-position: 50% 50%
   color: #333
   text-align: center
-  #flash, #error
-    padding: 10px
-    color: #c00
-  #info
-    padding: 10px
-    color: #060
-    span
-      display: block
+  h1
+    color: #32c4e9
+    text-shadow: 2px 2px #333
+  h2
+    color: #6dbf52
+    text-shadow: 1px 1px #333
+  div#error, div#flash
+    padding-top: 10px
+    color: #ee3a3c
+  div#info
+    float: right
+    text-align: left
+    width: 53%
+    padding-top: 10px
+    color: #6dbf52
+    font-family: 'Press Start 2P'
+  div#labels
+    float: left
+    text-align: right
+    width: 46%
+    padding-top: 10px
+    font-family: 'Press Start 2P'
+  span
+    display: block
+  input
+    &[type=file]
+      background: #dde
+      font-family: 'Droid Sans Mono', sans-serif
+      color: #333
+      padding: 5px
+      border: 0px none
+      -webkit-border-radius: 5px
+      border-radius: 5px
+      box-shadow: 2px 2px 1px #888
+    &[type=submit]
+      font-family: 'Droid Sans Mono', sans-serif
+      color: #333
+      padding: 5px 15px
+      background: #dde
+      border: 2px solid #6dbf52
+      cursor: pointer
+      -webkit-border-radius: 5px
+      border-radius: 5px
+      box-shadow: 2px 2px 1px #888
+      &:focus
+        border-color: #333
+        box-shadow: 1px 1px 0px

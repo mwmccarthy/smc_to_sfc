@@ -2,6 +2,8 @@
 %html
   %head
     %title SNES ROM converter: smc to sfc
+    %link{:href => 'http://fonts.googleapis.com/css?family=Press+Start+2P', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'http://fonts.googleapis.com/css?family=Droid+Sans+Mono', :rel => 'stylesheet', :type => 'text/css'}
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/styles.css'}
     %script{:src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'}
     %script{:src => '/javascripts/application.js'}
@@ -10,12 +12,23 @@
     %h2 smc to sfc
     %form{:action => '/convert', :method => 'post', :enctype => 'multipart/form-data'}
       %input{:type => 'file', :name => 'upfile', :id => 'rom_file'}
-      %input{:type => 'submit', :value => 'Convert!', :id => 'rom_submit'}
+      %input{:type => 'submit', :value => 'Convert!', :id => 'rom_submit', :class => 'myButton'}
     =styled_flash
+    %div{:id => 'error'}
     %div{:id => 'info'}
       %span{:id => 'name'}
       %span{:id => 'license'}
       %span{:id => 'country'}
       %span{:id => 'video'}
       %span{:id => 'version'}
-    %div{:id => 'error'}
+    %div{:id => 'labels'}
+      %span{:class => 'labels'}
+        Name:
+      %span{:class => 'labels'}
+        License:
+      %span{:class => 'labels'}
+        Region:
+      %span{:class => 'labels'}
+        Video:
+      %span{:class => 'labels'}
+        Version:

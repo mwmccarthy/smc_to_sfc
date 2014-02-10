@@ -1,29 +1,30 @@
-require 'sinatra'
+require 'sinatra/base'
 require 'sinatra/flash'
+require 'sinatra/json'
+require 'coffee-script'
 require 'haml'
 require 'sass'
-require 'coffee-script'
+require 'yaml'
 
 require_relative 'models/smc_rom'
 
-class SassEngine < Sinatra::Base
+class AssetsEngine < Sinatra::Base
 
-  set :views,   File.dirname(__FILE__)    + '/assets/sass'
-
-  get '/stylesheets/*.css' do
-    filename = params[:splat].first
-    sass filename.to_sym
-  end
-
-end
-
-class CoffeeEngine < Sinatra::Base
-
-  set :views,   File.dirname(__FILE__)    + '/assets/coffeescript'
+  set :views,   File.dirname(__FILE__)    + '/assets'
 
   get '/javascripts/*.js' do
     filename = params[:splat].first
-    coffee filename.to_sym
+    coffee "coffeescript/#{filename}".to_sym
+  end
+
+  get '/stylesheets/*.css' do
+    filename = params[:splat].first
+    sass "sass/#{filename}".to_sym
+  end
+
+  get '/JSON/*.json' do
+    filename = params[:splat].first
+    json YAML.load_file("assets/YAML/#{filename}.yaml")
   end
 
 end
@@ -31,11 +32,9 @@ end
 class Application < Sinatra::Base
 
   enable :sessions
-
   register Sinatra::Flash
-
-  use SassEngine
-  use CoffeeEngine
+  helpers Sinatra::JSON
+  use AssetsEngine
 
   set :views,   File.dirname(__FILE__)    + '/views'
   set :public,  File.dirname(__FILE__)    + '/public'

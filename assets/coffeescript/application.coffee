@@ -1,4 +1,5 @@
 $ ->
+  $('.labels').hide(1)
   $('#flash').fadeOut 3000
   $('#rom_file').change ->
 
@@ -7,6 +8,7 @@ $ ->
     $('#country').html ''
     $('#video').html ''
     $('#version').html ''
+    $('.labels').hide(1)
 
     if window.File and window.FileReader and window.FileList and window.Blob
       rom = $('#rom_file')[0].files[0]
@@ -26,13 +28,14 @@ $ ->
         header = new Uint8Array array_buffer, 0, 0x200
         dump = new Uint8Array array_buffer, 0x200
         o = detect_offset dump
-        $('#name').html "Name: #{String.fromCharCode(dump.subarray(0xffc0+o, 0xffc0+o+21)...)}"
-        $.getScript '/javascripts/licenses.js', () ->
-          $('#license').html "License: #{licenses[dump[0xffda+o]]}"
-        $.getScript '/javascripts/countries.js', () ->
-          $('#country').html "Region: #{countries[dump[0xffd9+o]]}"
-        $('#video').html "Video: #{detect_video(dump[0xffd9+o])}"
-        $('#version').html "Version: 1.#{dump[0xffdb+o]}"
+        $('.labels').show(1)
+        $('#name').html String.fromCharCode(dump.subarray(0xffc0+o, 0xffc0+o+21)...)
+        $.getJSON '/JSON/licenses.json', (licenses) ->
+          $('#license').html licenses[dump[0xffda+o]]
+        $.getJSON '/JSON/countries.json', (countries) ->
+          $('#country').html countries[dump[0xffd9+o]]
+        $('#video').html detect_video(dump[0xffd9+o])
+        $('#version').html "1.#{dump[0xffdb+o]}"
       reader.readAsArrayBuffer rom
 
     else
