@@ -11,7 +11,7 @@
     %h1 SNES ROM converter
     %h2 smc to sfc
     %form{:action => '/convert', :method => 'post', :enctype => 'multipart/form-data'}
-      %input{:type => 'file', :name => 'upfile', :id => 'rom_file'}
+      %input{:type => 'file', :name => 'upfile', :id => 'rom-file'}
       %input{:type => 'submit', :value => 'Convert!', :id => 'rom_submit', :class => 'myButton'}
     =styled_flash
     %div{:id => 'error'}
@@ -22,13 +22,8 @@
       %span{:id => 'video'}
       %span{:id => 'version'}
     %div{:id => 'labels'}
-      %span{:class => 'labels'}
-        Name:
-      %span{:class => 'labels'}
-        License:
-      %span{:class => 'labels'}
-        Region:
-      %span{:class => 'labels'}
-        Video:
-      %span{:class => 'labels'}
-        Version:
+      %span Name:
+      %span License:
+      %span Region:
+      %span Video:
+      %span Version:
