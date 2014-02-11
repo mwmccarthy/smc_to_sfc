@@ -1,8 +1,6 @@
 $ ->
-  downloadAttributeSupport = 'download' in document.createElement('a')
-  blob = null
-  blobURL = null
-  link = null
+  downloadAttributeSupport = 'download' of document.createElement('a')
+  [blob, blobURL, link] = [null, null, null]
 
   $('#labels').hide(1)
   $('#flash').fadeOut 3000
