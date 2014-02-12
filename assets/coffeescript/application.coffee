@@ -30,15 +30,25 @@ $ ->
         arrayBuffer = evt.target.result
         header = new Uint8Array arrayBuffer, 0, 0x200
         dump = new Uint8Array arrayBuffer, 0x200
-        o = detectOffset dump
+
+        offset = detectOffset dump
+        nameIndex = 0xffc0 + offset
+        licenseIndex = 0xffda + offset
+        countryIndex = 0xffd9 + offset
+        versionIndex = 0xffdb + offset
+        extHdrIndex = 0xffb2 + offset
+
         $('#labels').show(1)
-        $('#name').html String.fromCharCode(dump.subarray(0xffc0 + o, 0xffc0 + o + 21)...)
-        $.getJSON '/JSON/licenses.json', (licenses) ->
-          $('#license').html licenses[dump[0xffda + o]]
+        $('#name').html String.fromCharCode(dump.subarray(nameIndex, nameIndex + 21)...)
+        if dump[licenseIndex] is 0x33
+          $('#license').html String.fromCharCode(dump.subarray(extHdrIndex, extHdrIndex + 4)...)
+        else
+          $.getJSON '/JSON/licenses.json', (licenses) ->
+            $('#license').html licenses[dump[licenseIndex]]
         $.getJSON '/JSON/countries.json', (countries) ->
-          $('#country').html countries[dump[0xffd9 + o]]
-        $('#video').html detectVideo(dump[0xffd9 + o])
-        $('#version').html "1.#{dump[0xffdb + o]}"
+          $('#country').html countries[dump[countryIndex]]
+        $('#video').html detectVideo(dump[countryIndex])
+        $('#version').html "1.#{dump[versionIndex]}"
 
         if downloadAttributeSupport
           blob = new Blob([arrayBuffer.slice 512])
@@ -46,8 +56,7 @@ $ ->
           link = document.createElement('a')
           link.setAttribute 'href', blobURL
           link.setAttribute 'download', "#{pattern.exec(fname)[1]}.sfc"
-        #$('#download').attr 'href', blobURL
-        #$('#download').attr 'download', "#{pattern.exec(fname)[1]}.sfc"
+
       reader.readAsArrayBuffer rom
 
     else
